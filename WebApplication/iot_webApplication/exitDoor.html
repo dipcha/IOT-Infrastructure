@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Door</title>
+
+	<!-- jquery local link replaced with CDN -->
+	
+	<!--script type="text/javascript" src="js/jquery-1.10.2.min.js"></script-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+	
+	<!-- This page doesn't work with local boostrap Javascript. replacing it with CDN -->
+	
+	<!--script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script-->  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+	<script src="assets/js/script.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
+	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+		
+		<script>
+//Only Directions
+
+function mapsForGoogle(){
+
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+
+function initialize() {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  console.log("inside initailize function");
+  var mapOptions = {
+    zoom: 7,
+    center: new google.maps.LatLng(37.3393857,-121.8949555)
+  };
+  
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directions-panel'));
+console.log('loaded the map?');
+
+  //Aswin
+  var trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
+
+  var start = "san jose, ca";
+  var end = "san francisco, ca";
+  var request = {
+    origin: start,
+    destination: end,
+    travelMode: google.maps.TravelMode.DRIVING,
+	durationInTraffic: true
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+	  var timeOfTravel = response.routes[0].legs[0].duration['text'];
+	  sessionStorage.setItem('avgTime', timeOfTravel);
+	  //var minTravelTime = "50 mins";
+	  console.log(timeOfTravel);
+	  /* if(timeOfTravel > minTravelTime){
+		var msg = "Please start few minutes early to reach work on time!"
+		document.getElementById("trafficRecommend").innerHTML = msg;
+	  } */
+    }
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+} // maps function 
+
+</script>
+	<style>
+	
+	/* Directions Panel (Traffic) */
+	<style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      } 
+	  
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      } 
+    </style>
+    <style>
+      #directions-panel {
+        height: 100%;
+        float: right;
+        overflow: auto;
+        float: none;
+      }
+      #map-canvas {
+       min-height:400px;
+      }
+      @media print {
+        #map-canvas {
+          margin: 0;
+        }
+      } 
+	  .adp-directions{
+  background-color: #fff !important;
+}
+    </style>
+      <style>
+		input{
+		color:black;
+		}
+		.pager li a{
+			color:#fff;
+		}
+        .padBottom {
+            padding-bottom:20px;
+        }
+		label{
+			color:white;
+		}
+
+		.demo{
+			margin-bottom: -10px;
+			padding-bottom: 10px;
+			//background-color:#efefef;
+		}
+		img.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo page</a></li>
+					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
+					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
+					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
+					<li class="selected"><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
+					
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                     <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Aswin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div id="page-wrapper">
+		<!-- Adding Priyanka's code -->
+		
+		<h2 style="text-align:center;">Exit Home</h2>
+		<ul class="pager">
+			<li class="previous"><a href="livingRoom.html">Previous</a></li>
+		</ul>	
+		<div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Door with Recommendation</h3>
+                        </div>
+                        <div class="panel-body">
+								<div class="form-group">
+									<img  class="displayed" src="assets/img/door.jpg" width="250" height="250"></img>
+								</div>
+								<div class="form-group">
+										<h4>Recommendations</h4>
+										<div class=" well col-sm-12">
+										<div><h3>Grocery List:</h3>
+										<table class="table table bordered table striped">
+											<tr>
+												<td>Items</td>
+												<td>Quantity Left</td>
+												<td>Recommended</td>
+												
+											</tr>
+											<tr id="milkRow" style="display:none;">
+												<td>Milk</td>
+												<td><input type="text" id="milk"></td>
+												<td><label id="milkMsg"></label></td>
+											</tr>
+											<tr id="prodRow" style="display:none;">
+												<td>Produce</td>
+												<td><input type="text" id="prod"></td>
+												<td><label id="prodMsg"></label></td>
+											</tr>
+											<tr id="eggsRow" style="display:none;">
+												<td>Eggs</td>
+												<td><input type="text" id="eggs"></td>
+												<td><label id="eggsMsg"></label></td>
+											</tr>
+											<tr id="meatRow" style="display:none;">
+												<td>Meat</td>
+												<td><input type="text" id="meat"></td>
+												<td><label id="meatMsg"></label></td>
+											</tr>
+										</table>
+										</div>
+										</div>
+								</div>
+								<!--div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Weather</label>
+										<div class="col-sm-6">
+										<label for="company" class="col-sm-6 control-label">TBD</label>
+										</div>
+								</div-->
+								<!--div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Traffic</label>
+										<div class="col-sm-6">
+										<label for="company"  id="test" class="col-sm-6 control-label"></label>
+										</div>
+								</div-->
+								<div style="background-color:#fff; height:100%; width:100%;">
+										<h3 style="color:black;">Traffic</h3><div id="text"></div><br/>
+                						<div class="col-lg-8" id="map-canvas"></div>
+                						<div class="col-lg-4" id="directions-panel" style="background-color: #fff !important;"></div>
+								</div>
+                        </div><!-- body-->
+                    </div>
+                </div>
+            </div><!-- row -->
+    </div> 
+</div>
+</body>
+<script>
+$(document).ready(function(){
+mapsForGoogle();
+/*
+$.ajax({ //indoor
+		url: 'kitchen.html', 
+		dataType: 'jsonp',
+		success: function(result){
+		var y = result.temperature;
+		console.log("temp value : ", y);
+		document.getElementById('temp').innerHTML = y;
+		}
+}); */
+	var cities = ["San Jose Downtown", "Santa Clara", "Sunnyvale", "Mountain View", "Palo Alto", "Redwood City", "San Carlos", "Belmont", "San Mateo", "Burlingame", "Milbrae", "San Bruno", "Airport", "South San Francisco", "Brisbane", "Bernal Heights", "Mission District", "San Francisco Downtown"];
+	var incident = ["Construction", "Accident", "Road Closure"];
+	var randCity = cities[Math.floor(Math.random() * cities.length)];
+	var randIncident = incident[Math.floor(Math.random() * incident.length)];
+	var randMins = Math.floor((Math.random() * 21) + 10);
+	console.log(randCity + " " + randIncident + " " + randMins + " mins");
+	var msg = randIncident + " near " + randCity + " Please leave in " + randMins + " minutes";
+	
+	var travelTime = sessionStorage.getItem('avgTime');
+	var strSlice = travelTime.slice(0,2);
+	var travelTimeInt = parseInt(strSlice);
+	var trafficTime = randMins;
+	var trafficTimeInt = parseInt(trafficTime);
+	var totalTime = parseInt(travelTimeInt + trafficTimeInt);
+	console.log("travel time ", totalTime);
+	var trafficMsg;
+	if(totalTime > 60){
+		var mins = totalTime - 60 ;
+		trafficMsg = "Approximate time to Destination: 1 hour and "+ mins + " mins";
+	}else{
+	    trafficMsg = "Approximate time to Destination: " + totalTime + " mins";
+		}
+	document.getElementById("text").innerHTML = trafficMsg;
+	
+
+	$(".machine").bootstrapSwitch();
+	if(typeof(Storage) !== "undefined") {
+		var milk_qty = sessionStorage.getItem('milkQuantity');
+		var prod_qty = sessionStorage.getItem('produceQuantity');
+		var eggs_qty = sessionStorage.getItem('eggsQuantity');
+		var meat_qty = sessionStorage.getItem('meatQuantity');
+		
+		console.log("produce is", eggs_qty);
+		console.log("produce is", meat_qty);
+		
+		var milkMsg, eggsMsg, prodMsg, meatMsg;
+		
+		var milkRow = document.getElementById('milkRow');
+		var prodRow = document.getElementById('prodRow');
+		var eggsRow = document.getElementById('eggsRow');
+		var meatRow = document.getElementById('meatRow');
+		
+		/** milk **/
+		if(milk_qty > 40){
+			milkRow.style.display = "none";
+		}else if(milk_qty < 15){
+			milkMsg = "Stock up! Urgent!";
+			milkRow.style.display = '';	
+			document.getElementById("milk").value = "only " + milk_qty +" %";
+			document.getElementById("milkMsg").innerHTML = milkMsg;
+		}else{
+			milkMsg = "Get 1 Bottle";
+			milkRow.style.display = '';			
+			document.getElementById("milk").value = "only " + milk_qty +" %";
+			document.getElementById("milkMsg").innerHTML = milkMsg;
+		}
+		
+		/** Produce **/
+		
+		if(prod_qty > 40){
+			prodRow.style.display = "none";
+		}else if(prod_qty < 15){
+			prodMsg = "Get all Veggies! running short!";
+		}else{
+			prodMsg = "Get Cucumbers, Carrots, Bell Peppers and Salad mix";
+			prodRow.style.display = '';			
+			document.getElementById("prod").value = "only " + prod_qty +" %";
+			document.getElementById("prodMsg").innerHTML = prodMsg;
+		}
+		
+		/** Eggs **/
+		
+		if(eggs_qty > 7){
+			eggsRow.style.display = "none";
+		}else if(eggs_qty < 2){
+			eggsMsg = "Stock up! Eggs sufficient only for a day!"
+		}else{
+			eggsMsg = "Get a Dozen Eggs";
+			eggsRow.style.display = '';			
+			document.getElementById("eggs").value = "only " + eggs_qty +" %";
+			document.getElementById("eggsMsg").innerHTML = eggsMsg;
+		}
+		
+		/** Meat **/
+		if(meat_qty >1 ){
+			meatRow.style.display = "none";
+		}else if(meat_qty = 1){
+			meatMsg = "Only 1 serving left";
+		}else{
+			meatMsg = "Get 1 serving of Fish";
+			meatRow.style.display = '';			
+			document.getElementById("meat").value = "only " + meat_qty +" %";
+			document.getElementById("meatMsg").innerHTML = meatMsg;
+		}
+		
+		 if(milk_qty > 40 && prod_qty > 40 && eggs_qty > 7 && meat_qty > 1){
+			console.log("Display that everything is stocked up!");
+		} 
+		
+		/*document.getElementById("prod").value = pro_qty;
+		document.getElementById("eggs").value = eggs_qty;
+		document.getElementById("meat").value = meat_qty;
+		/* console.log("qty is: ", qty);
+		document.getElementById("test").value = qty; */
+	} else {
+		alert("Sorry! No Web Storage support..");
+	}
+});
+</script>
+</html>

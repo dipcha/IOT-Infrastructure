@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOT Devices - Dark Admin</title>
+
+	<!-- jquery local link replaced with CDN -->
+	
+	<!--script type="text/javascript" src="js/jquery-1.10.2.min.js"></script-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+	
+	<!-- This page doesn't work with local boostrap Javascript. replacing it with CDN -->
+	
+	<!--script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script-->  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+	<script src="assets/js/script.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
+	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+		
+      <style>
+		.alarmText{
+			color:#5bc0de;
+			text-align:centre;
+			font-weight: 900;
+		}
+		h4{
+			text-align:center;
+		}
+		textarea{
+			color:black;
+		}
+		.progress{
+			background:#fff;
+		}
+        .padBottom {
+            padding-bottom:20px;
+        }
+		label{
+			color:white;
+		}
+
+		.demo{
+			margin-bottom: -10px;
+			padding-bottom: 10px;
+			//background-color:#efefef;
+		}
+		#equalheight {
+			overflow: hidden; 
+		}
+    </style>
+	<script>
+		  	
+var jsalarm={
+	padfield:function(f){
+		return (f<10)? "0"+f : f
+	},
+	showcurrenttime:function(){
+		var dateobj=new Date()
+		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
+		this.ctref.innerHTML=ct
+		this.ctref.setAttribute("title", ct)
+		if (typeof this.hourwake!="undefined"){ //if alarm is set
+			if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
+				clearInterval(jsalarm.timer)
+				/* window.location=document.getElementById("musicloc").value
+				var snd = new Audio("Buzz.wav");
+				snd.play();
+				alert("the alarm is turned off"); */
+				var snd = new Audio("assets/Buzz.wav");
+				$("#myModal").modal('show');
+				$('.modal').on('hidden.bs.modal', function () {
+					 snd.addEventListener('ended', function() {
+						this.currentTime = 0;
+						this.play();
+					}, false);
+					//snd.loop = false;
+					snd.pause();
+				})
+
+				$('.modal').on('shown.bs.modal', function () {
+					snd.loop = true;
+					snd.play();
+				})
+			}
+		}
+	},
+	init:function(){
+		var dateobj=new Date()
+		this.ctref=document.getElementById("jsalarm_ct")
+		this.submitref=document.getElementById("submitbutton")
+		this.submitref.onclick=function(){
+			jsalarm.setalarm()
+			this.value="Alarm Set"
+			alarmClock.status = "ON";
+			this.disabled=true
+			return false
+		}
+		this.resetref=document.getElementById("resetbutton")
+		this.resetref.onclick=function(){
+		jsalarm.submitref.disabled=false
+		jsalarm.hourwake=undefined
+		jsalarm.hourselect.disabled=false
+		jsalarm.minuteselect.disabled=false
+		jsalarm.secondselect.disabled=false
+		resetAll();
+		return false
+		}
+		var selections=document.getElementsByTagName("select")
+		this.hourselect=selections[0]
+		this.minuteselect=selections[1]
+		this.secondselect=selections[2]
+		for (var i=0; i<60; i++){
+			if (i<24) {//If still within range of hours field: 0-23
+			this.hourselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getHours()==i)}
+			this.minuteselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getMinutes()==i)
+			this.secondselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getSeconds()==i)
+		} 
+		jsalarm.showcurrenttime()
+		jsalarm.timer=setInterval(function(){jsalarm.showcurrenttime()}, 1000)
+	},
+	setalarm:function(){
+		this.hourwake=this.hourselect.options[this.hourselect.selectedIndex].value
+		this.minutewake=this.minuteselect.options[this.minuteselect.selectedIndex].value
+		this.secondwake=this.secondselect.options[this.secondselect.selectedIndex].value
+		this.hourselect.disabled=true
+		this.minuteselect.disabled=true
+		this.secondselect.disabled=true
+	}
+}
+	</script>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+					<li class="selected"><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li> 
+					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
+					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
+					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                     <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Aswin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div id="page-wrapper">
+		<!-- Adding Priyanka's code -->
+		
+		<h2 style="text-align:center;">Device Connections</h2>
+		<button class="btn btn-warning" id="simulate">Start Simulation</button>
+		<button class="btn btn-success" id="nextDay">Next Day</button>
+		<button class="btn btn-danger" id="stop">Stop Stimulation</button>
+		<ul class="pager">
+			<li class="previous"><a href="bedRoom.html">Previous</a></li>
+			<li class="next"><a href="livingRoom.html">Next</a></li>
+		</ul>
+		<div class="well col-sm-offset-1 col-sm-10 col-sm-offset-1 "><h4>Alarm Clock</h4>
+			<div class="alarmText" id="regAlarm"></div>
+			<div class="alarmText" id="trafficAlarm"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="well col-sm-6 demo">
+			<h4>Coffee Machine</h4>
+			<div class="form-group">
+				<img class="displayed" src="assets/img/coffee.png" width="200" height="150"></img>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Power:</label>
+					<div class="col-sm-6">
+					<input type="checkbox" name="my-checkbox" class="machine" id="coffee" data-off-color="danger" data-on-color="success" disabled />
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Water Level:</label>
+					<div class="col-sm-6">
+					<!--label for="company" class="col-sm-6 control-label">TBD</label-->
+					<label class="col-sm-6 control-label" id="water"/></label>
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Powder Level:</label>
+					<div class="col-sm-6">
+					<label for="company" class="col-sm-6 control-label" id="powder"></label>
+					<!--input type="text" class="col-sm-6" id="powder"/-->
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Filter Status:</label>
+					<div class="col-sm-6">
+					<label for="company" class="col-sm-6 control-label" id="filter"></label>
+					<!--input type="text" class="col-sm-6" id="filter"/-->
+					</div>
+			</div>
+		</div>
+		<div class="well col-sm-6 demo">
+			<h4>Toaster Oven</h4>
+			<div class="form-group">
+				<img class="displayed" src="assets/img/toaster.png" width="200" height="150"></img>
+			</div>
+			<div class="form-group">
+					<label for="state" class="col-sm-6 control-label">Power:</label>
+					<div class="col-sm-6">
+					<input type="checkbox" name="my-checkbox" class="machine" id="toaster" data-off-color="danger" data-on-color="success" disabled />
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Timer set:</label>
+					<div class="col-sm-6">
+					<label for="company" class="col-sm-6 control-label" id="timer"></label>
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Bread:</label>
+					<div class="col-sm-6">
+					<label for="company" class="col-sm-6 control-label" id="bread"></label>
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label"><br/></label>
+			</div>
+		</div>
+	</div><!-- closing 1st row -->
+		<br/>
+		<div class="row">
+				<div class="well col-sm-offset-2 col-sm-8 col-sm-offset-2 demo">
+			<h4>Refrigerator</h4>
+			<div class="form-group" style="position: relative;">
+				<img class="displayed" class="displayed" src="assets/img/fridge.png" width="200" height="150"></img>
+			</div>
+			<div class="form-group">
+				<div class="well col-md-12"><h4>Milk Section</h4>
+					<label for="company" class="col-sm-4 control-label">Expiry</label>
+					<div class="col-sm-8">
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" id="milkBar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">
+						</div></div>
+					</div>
+					<label for="company" class="col-sm-4 control-label">Qty:</label>
+					<div class="col-sm-8">
+						<div class="progress">
+								<div class="progress-bar" role="progressbar" id="milkQty" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="">
+						</div></div>
+					</div>
+					</div>
+			</div>
+			<!--div class="form-group">
+				<div class="well col-md-12"><h4>Produce Section</h4>
+					<table class="table table striped">
+						<tr><td>Items</td>
+							<td>Quantities</td>
+							<td>Expiry Meter</td>
+						</tr>
+						<tr>
+													<td>Produce</td>
+													<td><textarea id="produce" rows="1" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="produceBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+												<tr>
+													<td>Eggs</td>
+													<td><textarea id="eggs" rows="1" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="eggsBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="15" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+												<tr>
+													<td>Meat</td>
+													<td><textarea id="meat" rows="1" disabled ></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="meatBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="7" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+											</table>
+										</div>
+				</div-->
+			</div>
+		</div><!-- 2nd row closing -->
+		<br/>
+	<div class="row">
+		<div class="well col-sm-6 demo">
+			<h4>Television</h4>
+			<div class="form-group" style="position: relative;">
+				<img class="displayed" src="assets/img/tv.png" width="200" height="150"></img>
+				<div style="position: absolute; top:-10px; left:168px">
+					<video width="180" height="140" controls>
+					  <source src="assets/img/nasa.mp4" type="video/mp4">
+					  <source src="assets/img/nasa.ogg" type="video/ogg">
+					  Your browser does not support HTML5 video.
+					</video>
+				</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-3 control-label">Weather:</label>
+					<div class="col-sm-9">
+						<label for="company" class="col-sm-6 control-label" id="weatherMsg"></label>
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-3 control-label">Traffic:</label>
+					<div class="col-sm-9">
+						<label for="company" class="col-sm-9 control-label" id="trafficMsg"></label>
+					</div>
+			</div>
+		</div>
+		<div class="well col-sm-6 demo">
+			<h4>Thermostat</h4>
+			<div class="form-group" style="position: relative;">
+				<img class="displayed" src="assets/img/thermostat.png" width="200" height="150"></img>
+				<div style="position: absolute; top:-10px; left:8px">
+				</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Temperature:</label>
+					<div class="col-sm-6">
+						<label for="company" class="col-sm-6 control-label" id="temp"></label>
+					</div>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label"><br/></label>
+			</div>
+			<div class="form-group">
+					<label for="company" class="col-sm-6 control-label"><br/></label>
+			</div>
+			<!--div class="form-group">
+					<label for="company" class="col-sm-6 control-label">Power:</label>
+					<div class="col-sm-6">
+						<label for="company" class="col-sm-6 control-label"></label>
+					</div>
+			</div-->
+		</div>
+	</div><!-- 3rd row closing-->
+  </div> <!-- page wrapper -->
+</div><!-- wrapper -->
+</body>
+<script>
+	$(".machine").bootstrapSwitch();
+
+/******* KITCHEN ******/
+//Refrigerator section
+
+/* MILK Section */
+	
+	/*
+	$.ajax({
+type: "GET",
+url: "http://saskatchewan.univ-ubs.fr:8080/SASStoredProcess/do?_username=DARTIES3-2012&_password=P@ssw0rd&_program=%2FUtilisateurs%2FDARTIES3-2012%2FMon+dossier%2Fanalyse_dc&annee=2012&ind=V&_action=execute",
+dataType: "jsonp",
+}).success( function( data ) {
+var x = $( '#page-wrapper > div:nth-child(8) > div > div:nth-child(3) > div > div:nth-child(3) > div > div:[@id="milkBar"]' ).html( data );
+}) */
+	//*[@id="milkBar"]
+	
+	/* var milkFreshness;
+	var milkLife = 10;
+	var milkQty; */
+	var milkQtyArray = [];
+	var milkExpiryArray = [];
+	var myObject = {
+		milkQuantityArray : milkQtyArray,
+		milkExpirationArray : milkExpiryArray,
+	}
+	/* var milkObject = {
+		milkFresh : milkFreshness,
+		life : milkLife,
+		qty : milkQty
+	}; */
+	
+		/* var milkFreshness = Math.floor((Math.random() * 10) + 1); 
+		var milkExpiry = exp(milkFreshness, milkLife); 
+		var milkQty = Math.floor(Math.random() * 101); */
+		var milkLife = 10;
+		var milkFreshness;
+		var milkEId = "#milkBar";
+		var currExpiry;
+	var q = 0;
+	var milkQty;
+	var reduce = Math.floor((Math.random() * 11)+15);
+	var milkId = "#milkQty"; // id for the progress bar
+	$( "#simulate" ).click(function() {
+		//console.log("inside simulate");
+		localStorage.clear();
+		// if no value is stored in localStorage, then initialize with any value 0-100
+			alarmAlert();
+			milkQtyInit();
+			milkExpiryInit();
+			coffeeInit();
+			toaster();
+			thermostat();
+			console.log("after simulate", myObject);
+			trafficAlert();
+			weatherAlert();
+	});
+
+	function thermostat(){
+		$.ajax({ //indoor
+		url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/1/getTemp', 
+		dataType: 'jsonp',
+		success: function(result){
+		var y = result.temperature;
+		console.log("temp value : ", y);
+		document.getElementById('temp').innerHTML = y;
+		}
+	});
+	}
+	
+	/*
+	function produceQtyInit(){
+		produceQty = Math.floor(Math.random() * 101); 
+		console.log("produce initializing to: ", produceQty);
+		//milkQtyArray.push(milkQty);
+		localStorage.setItem('produceQuantity', produceQty);
+		displayMilkQty(produceQty, produceId); 
+	}*/
+	
+	function milkQtyInit(){
+		milkQty = Math.floor(Math.random() * 101); 
+		console.log("Now initializing to: ", milkQty);
+		milkQtyArray.push(milkQty);
+		localStorage.setItem('milkQuantity', milkQty);
+		displayMilkQty(milkQty, milkId);
+	}
+	
+	function milkExpiryInit(){
+		milkFreshness = Math.floor((Math.random() * 10)+1);
+		localStorage.setItem('milkFreshness', milkFreshness);
+		milkExpiryArray.push(milkFreshness);
+		//milkExpiry = exp(milkFreshness, milkLife); 
+		displayExpiry(milkFreshness, milkLife, milkEId);
+	}
+	
+	var waterLevel, powderLevel;
+	var reduceWater = Math.floor((Math.random() * 5)+10);
+	var reducePowder = Math.floor((Math.random() * 6)+5);
+	console.log("powder is: ", powderLevel);
+	function coffeeInit(){
+		waterLevel = Math.floor((Math.random() * 100)+1);
+		localStorage.setItem('waterLevel', waterLevel);
+		document.getElementById('water').innerHTML = waterLevel;
+		
+		powderLevel = Math.floor((Math.random() * 100)+1);
+		localStorage.setItem('powderLevel', powderLevel);
+		document.getElementById('powder').innerHTML = powderLevel;
+		filterStatus();
+	}
+	function filterStatus(){
+		var filterStatus = ['Excellent', 'Good', 'Fine', 'Bad', 'Very Bad'];
+		var randFilterStatus = filterStatus[Math.floor(Math.random() * filterStatus.length)];
+		document.getElementById('filter').innerHTML = randFilterStatus;
+	}
+	function toaster(){
+		var toasterTime = Math.floor((Math.random() * 5)+1);
+		document.getElementById('timer').innerHTML = toasterTime + " secs";
+		var breadLevel = Math.floor((Math.random() * 10)+1);
+		document.getElementById('bread').innerHTML = breadLevel + " left";
+	}
+	function displayExpiry(currFreshness, shelfLife, milkEId){
+		/*if(currFreshness < shelfLife){
+			console.log("milk is ", currFreshness, " days old");
+		}else if(currFreshness == shelfLife){
+		console.log("Expires today! Stock up!");
+		} else if(currFreshness > shelfLife + 1){
+			console.log("Already Expired");
+		} */
+		var pct_left = (currFreshness/shelfLife) * 100;
+			var fullWidth = 100
+			/* if(shelfLife > 7){
+			var week = 7;
+			} else{ week = 0;} */
+			if (currFreshness == 1) {
+				console.log("Super Fresh");
+				$(milkEId).removeClass().addClass("progress-bar progress-bar-success");
+				$(milkEId).text("Super Fresh");
+				$(milkEId).css("width", fullWidth + "%");
+				$(milkEId).attr("aria-valuenow", fullWidth + "%");
+				
+			} else if (currFreshness < shelfLife) {
+				console.log("milk is ", currFreshness, " days old");
+				$(milkEId).removeClass().addClass("progress-bar progress-bar-warning");				
+				$(milkEId).text(currFreshness + " days old");
+				$(milkEId).css("width", pct_left + "%");
+				$(milkEId).attr("aria-valuenow", pct_left + "%");
+				
+		    }else if(currFreshness == shelfLife){
+				console.log("Expires today! Stock up!");
+				$(milkEId).removeClass().addClass("progress-bar progress-bar-danger");
+				$(milkEId).text("Expires today Stock up!");
+				$(milkEId).css("width", fullWidth + "%");
+				$(milkEId).attr("aria-valuenow", fullWidth + "%");
+			}	
+	}
+	
+	$( "#nextDay" ).click(function() {
+		alarmAlert();
+		toaster();
+		milkQtyCalc();
+		milkExpiryCalc();
+		coffeeWaterLevel();
+		coffeePowderLevel();
+		thermostat();
+		trafficAlert();
+		weatherAlert();
+		filterStatus();
+	});
+function milkQtyCalc(){
+			 q = localStorage.getItem('milkQuantity');
+			if( q < 10){
+				milkQty = alerting(milkQty);
+			} else{
+					console.log("nextDay value from storage is: ",q);
+					milkQty = q - reduce;
+					if(milkQty < 0){
+						milkQty = 0;
+					}
+			}
+			localStorage.setItem('milkQuantity',milkQty);
+			milkQtyArray.push(milkQty);
+			console.log("after milkQty", myObject);
+			 console.log("current day qty", milkQty);
+			 displayMilkQty(milkQty, milkId); 
+		}
+	
+	function alerting(milkQty){
+		console.log("you have very less milk.. stocking up now!");
+		displayMilkQty(milkQty, milkId);
+		return 100;
+	}
+
+	function milkExpiryCalc(){
+		currExpiry = localStorage.getItem('milkFreshness');
+		console.log("in next day, milkExpiry from storage: ", currExpiry);
+		if(currExpiry < milkLife){
+			milkFreshness = milkFreshness + 1 ; // daily it gets 1 day old
+			localStorage.setItem('milkFreshness', milkFreshness);
+			milkExpiryArray.push(milkFreshness);
+			displayExpiry(milkFreshness, milkLife, milkEId); 
+		}else if(currExpiry == milkLife || milkQty < 10 ){
+			milkFreshness = 1;
+			localStorage.setItem('milkFreshness', milkFreshness);
+			milkExpiryArray.push(milkFreshness);
+			displayExpiry(milkFreshness, milkLife, milkEId); 
+		}else if(currExpiry >= milkLife + 1){
+			milkFreshness = milkFreshness + 1 ; // daily it gets 1 day old
+			localStorage.setItem('milkFreshness', milkFreshness);
+			milkExpiryArray.push(milkFreshness);
+			displayExpiry(milkFreshness, milkLife, milkEId); 	
+		}else{
+			console.log("expired");
+		} 
+		console.log("after 1 st day", myObject);
+	} 
+	
+	function coffeeWaterLevel(){
+		currWaterLevel = localStorage.getItem('waterLevel');
+		if(currWaterLevel < 20){
+			console.log("Add water");
+			waterLevel = 100;
+			localStorage.setItem('waterLevel', waterLevel);
+		}else{
+			waterLevel = currWaterLevel - reduceWater;
+			if(waterLevel < 0){
+				waterLevel = 0;
+			}
+			localStorage.setItem('waterLevel', waterLevel);
+			document.getElementById('water').innerHTML = waterLevel;
+		}
+	}
+	function coffeePowderLevel(){
+		currPowderLevel = localStorage.getItem('powderLevel');
+		if(currPowderLevel < 20){
+			console.log("Add water");
+			powderLevel = 100;
+			localStorage.setItem('powderLevel', powderLevel);
+		}else{
+			powderLevel = powderLevel - reducePowder;
+			if(powderLevel < 0){
+				powderLevel = 0;
+			}
+			localStorage.setItem('powderLevel', powderLevel);
+			document.getElementById('powder').innerHTML = powderLevel;
+		}
+	}
+
+		function trafficAlert(){
+			var cities = ["San Jose Downtown", "Santa Clara", "Sunnyvale", "Mountain View", "Palo Alto", "Redwood City", "San Carlos", "Belmont", "San Mateo", "Burlingame", "Milbrae", "San Bruno", "Airport", "South San Francisco", "Brisbane", "Bernal Heights", "Mission District", "San Francisco Downtown"];
+		var incident = ["Construction", "Accident", "Road Closure"];
+		var randCity = cities[Math.floor(Math.random() * cities.length)];
+		var randIncident = incident[Math.floor(Math.random() * incident.length)];
+		console.log(randCity + " " + randIncident);
+		var msg = randIncident + " near " + randCity;
+		document.getElementById("trafficMsg").innerHTML = msg;
+		}
+	function weatherAlert(){
+		var weather = ["Cloudy", "Sunny", "mostly Cloudy", "Foggy", "Rain", "Showers"];
+		var randWeather = weather[Math.floor(Math.random() * weather.length)];
+		document.getElementById('weatherMsg').innerHTML = randWeather;
+ 	}
+
+	/* end MILK Section */
+	
+	$( "#stop" ).click(function() {
+		// save the item to local storage and then access it
+
+		// Put the object into storage
+		localStorage.setItem('myObject', JSON.stringify(myObject));
+
+		// Retrieve the object from storage
+		var retrievedObject = localStorage.getItem('myObject');
+		var parsedObject = JSON.parse(retrievedObject);
+		//var milkQuantity = parsedObject.milkQuantityArray; 
+		console.log('milkQuantity: ', JSON.parse(retrievedObject).milkQuantityArray);
+		console.log('milkExpiry: ', JSON.parse(retrievedObject).milkExpirationArray);
+		
+	});
+			<!----- MILK ------>
+	function displayMilkQty(milkQty, milkId){
+		var full = milkQty + 100;
+		if(milkQty == 100){
+			console.log("value 100");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text("Full");
+		}else if(milkQty <= 10){
+			console.log("value less than 10");
+			$(milkId).addClass("progress-bar-danger");
+			$(milkId).css("width", full + "%");
+			$(milkId).attr("aria-valuenow", full + "%");
+			$(milkId).text("Empty! Stock up!");
+		} else if(milkQty > 70 && milkQty < 100){
+			console.log("between 70-100");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else if(milkQty > 40 && milkQty < 70){
+			console.log("between 40-70");
+			$(milkId).removeClass().addClass("progress-bar");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else{
+			console.log("between 10-40");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-warning");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		}
+	} // closing function
+<!----- Closing MILK ---->
+	/** Expiry **/
+		function exp(currentFreshness, shelfLife){
+			if(currentFreshness == 0){
+				var send = 0;
+			} else if(currentFreshness < shelfLife){
+				send = shelfLife - currentFreshness;
+			} else if(currentFreshness == shelfLife+1){
+				send = shelfLife+1;
+			} else{
+				send = shelfLife;
+			}
+			return send;
+		}
+		
+		console.log("Local Storage Data");
+		for (var i = 0; i < localStorage.length; i++){
+			// do something with localStorage.getItem(localStorage.key(i));	
+		 console.log(localStorage.key(i) + "=[" + localStorage.getItem(localStorage.key(i)) + "]");
+		}
+
+		//console.log("global object is ", myObject);
+		
+/*** ALARM **/
+
+function alarmAlert(){
+	var regAlarm = "Original Alarm was set @ 6:00 AM";
+	var trafficAlarm = "5: ";
+	var secTime = 60; 
+	console.log("time is :", secTime);
+	var traffic = Math.floor((Math.random() * 11)+ 40);
+	var trafficInt = parseInt(traffic);
+	var timeSet = secTime - trafficInt;
+	console.log("traffic is :", trafficInt);
+	var trafficTime = trafficAlarm + " " + timeSet;
+	var displayTrafficTime = "Because of traffic, alarm has been set @ " + trafficTime + " AM";
+	document.getElementById('regAlarm').innerHTML = regAlarm;
+	document.getElementById('trafficAlarm').innerHTML = displayTrafficTime;
+}
+</script>
+</html>

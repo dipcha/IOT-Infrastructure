@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen</title>
+
+	<!-- jquery local link replaced with CDN -->
+	
+	<!--script type="text/javascript" src="js/jquery-1.10.2.min.js"></script-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+	
+	<!-- This page doesn't work with local boostrap Javascript. replacing it with CDN -->
+	
+	<!--script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script-->  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+	<script src="assets/js/script.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
+	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+		
+      <style>
+		
+	.bootstrap-switch-container{
+	width:159px !important;
+	}
+		h4{
+			text-align:center;
+		}
+		textarea{
+			color:black;
+		}
+		.progress{
+			background:#fff;
+		}
+        .padBottom {
+            padding-bottom:20px;
+        }
+		label{
+			color:white;
+		}
+
+		.demo{
+			margin-bottom: -10px;
+			padding-bottom: 10px;
+			//background-color:#efefef;
+		}
+		#equalheight {
+			overflow: hidden; 
+		}
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				<!--a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a-->
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
+					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
+					<li class="selected"><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
+					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                     <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Aswin<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div id="page-wrapper">
+		<!-- Adding Priyanka's code -->
+		
+		<h2 style="text-align:center;">Kitchen</h2>
+		<ul class="pager">
+			<li class="previous"><a href="bedRoom.html">Previous</a></li>
+			<li class="next"><a href="livingRoom.html">Next</a></li>
+		</ul>	
+		<div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Coffee Machine</h3>
+                        </div>
+                        <div class="panel-body">
+								<div class="form-group">
+									<img class="displayed" src="assets/img/coffee.png" width="200" height="150"></img>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Power:</label>
+										<div class="col-sm-6">
+										<input type="checkbox" name="my-checkbox" class="machine" id="coffee" data-off-color="danger" data-on-color="success" disabled />
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Coffee Status:</label>
+										<div class="col-sm-6">
+										<!--label for="company" class="col-sm-6 control-label" id="coffeeStatus"></label-->
+										<div class="progress">
+										<div class="progress-bar"  id="coffeeStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">Ideal
+										</div></div>
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Water Level:</label>
+										<div class="col-sm-6">
+										<label for="company" class="col-sm-6 control-label" id="water"></label>
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Powder Level:</label>
+										<div class="col-sm-6">
+										<label for="company" class="col-sm-6 control-label" id="powder"></label>
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Filter Status:</label>
+										<div class="col-sm-6">
+										<label for="company" class="col-sm-6 control-label" id="filter"></label>
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Click to take Coffee:</label>
+										<div class="col-sm-6">
+										<button class="btn btn-success" id="coffeeCup"><i class="fa fa-coffee fa-lg"></i> Coffee</button>
+										</div>
+								</div>
+								<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Meetings Message:</label>
+										<div class="col-sm-6">
+										<button class="btn btn-default" id="replayMsg">Replay</button>
+										</div>
+								</div>
+                        </div><!-- body-->
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Toaster</h3>
+                        </div>
+                        <div class="panel-body">
+							<div class="form-group">
+								<img class="displayed" src="assets/img/toaster.png" width="200" height="150"></img>
+							</div>
+							<div class="form-group">
+									<label for="state" class="col-sm-6 control-label">Power:</label>
+									<div class="col-sm-6">
+									<input type="checkbox" name="my-checkbox" class="machine" id="toaster" data-off-color="danger" data-on-color="success" disabled />
+									</div>
+							</div>
+							<div class="form-group">
+										<label for="company" class="col-sm-6 control-label">Toast Status:</label>
+										<div class="col-sm-6">
+										<div class="progress">
+										<div class="progress-bar"  id="toastStatus" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">Ideal
+										</div></div>
+										</div>
+								</div>
+							<div class="form-group">
+									<label for="company" class="col-sm-6 control-label">Timer set:</label>
+									<div class="col-sm-6">
+									<label for="company" class="col-sm-6 control-label" id="timer"></label>
+									</div>
+							</div>
+							<div class="form-group">
+									<label for="company" class="col-sm-6 control-label">Bread:</label>
+									<div class="col-sm-6">
+									<label for="company" class="col-sm-6 control-label" id="bread">TBD</label>
+									</div>
+							</div>
+                        </div><!--body-->
+                    </div>
+                </div>
+            </div><!-- row -->
+			<div class="row">
+				<div class="col-md-offset-2 col-md-8 col-md-offset-2">
+					<div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Refrigerator</h3>
+                        </div>
+                        <div class="panel-body">
+								<div class="form-group">
+									<img class="displayed" src="assets/img/fridge.png" width="200" height="150"></img>
+								</div>
+								<div class="form-group">
+									<div class="well col-md-12"><h4>Milk Section</h4>
+										<label for="company" class="col-sm-4 control-label">Milk Expiry Date:</label>
+										<div class="col-sm-8">
+											<div class="progress">
+												<div class="progress-bar progress-bar-warning" role="progressbar" id="milkBar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">
+												</div></div>
+										</div>
+										<label for="company" class="col-sm-4 control-label">Milk Quantity:</label>
+										<div class="col-sm-8">
+											<div class="progress">
+												<div class="progress-bar" role="progressbar" id="milkQty" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="">
+												</div></div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+										<div class="well col-md-12"><h4>Produce Section</h4>
+											<table class="table table striped">
+												<tr><td>Items</td>
+													<td>Quantities</td>
+													<td>Expiry Meter</td>
+												</tr>
+												<tr>
+													<td>Produce</td>
+													<td><textarea id="produce" rows="1" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="produceBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="21" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+												<tr>
+													<td>Eggs</td>
+													<td><textarea id="eggs" rows="1" disabled></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="eggsBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="15" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+												<tr>
+													<td>Meat</td>
+													<td><textarea id="meat" rows="1" disabled ></textarea></td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar progress-bar-warning"  id="meatBar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="7" style="">1 day
+														</div></div>
+													</td>
+												</tr>
+											</table>
+										</div>
+								</div>
+                        </div><!-- body-->
+                    </div>
+				</div>
+			</div>
+	
+    </div> 
+</div>
+</body>
+<script>	
+
+	$( "#coffeeCup" ).click(function() {
+	// disable the button and then start reading...
+	 $("#coffeeCup").prop("disabled",true);
+	 textToSpeech();
+	});
+	$( "#replayMsg" ).click(function() {
+		textToSpeech();
+	});
+
+	$(".machine").bootstrapSwitch();
+	
+	function textToSpeech(){
+	
+		var text1 = "Good Morning!";
+		var text2 = "You have the following meetings today,ten thirty to eleven, meet professor and show the demo,then from tweleve to one, lunch with teammates, and from three to five, work on the project Expo";
+		
+		console.log("came to speech");
+		var msg = new SpeechSynthesisUtterance();
+		var voices = window.speechSynthesis.getVoices();
+		msg.voice = voices[10]; // Note: some voices don't support altering params
+		msg.voiceURI = 'native';
+		msg.volume = 1; // 0 to 1
+		msg.rate = 1; // 0.1 to 10
+		msg.pitch = 2; //0 to 2
+		//msg.text = 'Hello World';
+		msg.text = text1 + text2;
+		msg.lang = 'en-US';
+
+		msg.onend = function(e) {
+		  console.log('Finished in ' + event.elapsedTime + ' seconds.');
+		};
+
+		speechSynthesis.speak(msg); 
+	}
+	
+	/* Fridge Section */
+	
+	/* MILK Section */
+	
+	/**** Default Page Code ***/
+	
+		var milkFreshness = Math.floor(Math.random() * 16);
+		console.log("milk current Fresh ", milkFreshness , "days");
+		var milkLife = 15;
+		var milkExpiry = exp(milkFreshness, milkLife);
+		
+		var milkId = "#milkQty";
+		var milkQty = Math.floor(Math.random() * 101); 
+		 displayMilkQty(milkQty, milkId); 
+		 
+	/* end MILK Section */
+	
+			<!----- MILK ------>
+	function displayMilkQty(milkQty, milkId){
+		var full = milkQty + 100;
+		if(milkQty == 100){
+			console.log("value 100");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text("Full");
+		}else if(milkQty <= 10){
+			console.log("value less than 10");
+			$(milkId).addClass("progress-bar-danger");
+			$(milkId).css("width", full + "%");
+			$(milkId).attr("aria-valuenow", full + "%");
+			$(milkId).text("Empty! Stock up!");
+		} else if(milkQty > 70 && milkQty < 100){
+			console.log("between 70-100");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-success");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else if(milkQty > 40 && milkQty < 70){
+			console.log("between 40-70");
+			$(milkId).removeClass().addClass("progress-bar");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		} else{
+			console.log("between 10-40");
+			$(milkId).removeClass().addClass("progress-bar progress-bar-warning");
+			$(milkId).css("width", milkQty + "%");
+			$(milkId).attr("aria-valuenow", milkQty + "%");
+			$(milkId).text(milkQty + " %");
+		}
+	} // closing function
+		<!----- end MILK ------>
+	
+	
+	<!----- PRODUCE QUANTITY ---->
+	
+		//Produce
+		var produceQty = Math.floor(Math.random() * 101);
+		if(produceQty == 0){
+			produceQtyMsg = "Out of fresh Produce! Stock Up!";
+		} else if(produceQty == 100){
+			produceQtyMsg = "Produce Section full!";
+		} else{
+			produceQtyMsg = produceQty + "% of fresh produce left";
+		}
+		document.getElementById("produce").value = produceQtyMsg;
+		
+		//Eggs
+		var eggsQty = Math.floor(Math.random() * 13);
+		if(eggsQty == 0){
+			eggsQtyMsg = "No eggs left! Stock up!"; 
+		}else if(eggsQty == 1){
+			eggsQtyMsg = "only " + eggsQty + " egg left"; 
+		} else if(eggsQty == 12){
+			eggsQtyMsg = "Full Stock"; 
+		}else{
+			eggsQtyMsg = eggsQty + " eggs left"; 
+		}
+		document.getElementById("eggs").value = eggsQtyMsg;
+		
+		//Meat
+		var meatQty = Math.floor(Math.random() * 3);
+		if(meatQty > 0){
+			var meat = ["Fish","Chicken","turkey"];
+			var meatVariety = meat[Math.floor(Math.random() * meat.length)];
+			var meatQtyMsg = meatQty + " servings of " + meatVariety + " left"; 
+		}else{ meatQtyMsg = "Stock up! No more meat!";
+		}
+		document.getElementById("meat").value = meatQtyMsg;
+		console.log("eggs: "+eggsQty);
+		
+	<!----- end  QUANTITY ---->
+	
+	<!------ EXPIRY ------>
+		var produceFreshness = Math.floor(Math.random() * 16);
+		var eggsFreshness = Math.floor(Math.random() * 22);
+		var meatFreshness = Math.floor(Math.random() * 8);
+		console.log(produceFreshness);
+		
+		var produceLife = 15;
+		var eggsLife = 21;
+		var meatLife = 7;
+
+		var produceExpiry = exp(produceFreshness, produceLife);
+		var eggsExpiry = exp(eggsFreshness, eggsLife);
+		var meatExpiry = exp(meatFreshness, meatLife);
+		
+		function exp(currentFreshness, shelfLife){
+			if(currentFreshness == 0){
+				var send = 0;
+			} else if(currentFreshness < shelfLife){
+				send = shelfLife - currentFreshness;
+			} else if(currentFreshness == shelfLife+1){
+				send = shelfLife+1;
+			} else{
+				send = shelfLife;
+			}
+			return send;
+		}
+		
+		<!------ end EXPIRY ------>
+	
+		
+		$(document).ready(function() {
+			var status = localStorage.getItem('buttonStatus');
+			console.log("status is ", status);
+			if(status){
+				$(".machine").bootstrapSwitch('disabled', false); 
+				$(".machine").bootstrapSwitch('state', true);
+				$(".machine").bootstrapSwitch('disabled', true);
+				
+				
+				 var coffeeStat = "Brewing";
+				 var toastStat = "Toasting"
+				 var coffeeBar = $('#coffeeStatus');
+				 var toastBar = $('#toastStatus');
+				 
+				 /*** coffee status ***/	
+				 statusBar(coffeeStat, coffeeBar);
+				 /*** toast status ***/	
+				 statusBar(toastStat, toastBar);
+				 
+				 //setInterval(statusBar(toastStat, toastBar),5000);
+				 
+				function statusBar(status, progressBar){
+					width = 0;
+					progressBar.css('width', width + '%');
+					progressBar.attr("aria-valuenow", width + "%");
+					var interval = setInterval(function() {
+					width += 33;
+					progressBar.css('width', width + '%');
+					progressBar.attr("aria-valuenow", width + "%");
+					if(width == 33){
+						progressBar.text('Started');
+						progressBar.removeClass().addClass("progress-bar progress-bar-danger"); 
+					}else if(width == 66){
+						 progressBar.text(status);
+						progressBar.removeClass().addClass("progress-bar progress-bar-warning"); 
+					}else{
+						progressBar.text('Finished');
+						progressBar.removeClass().addClass("progress-bar progress-bar-success"); 
+					}
+					if (width >= 100) {
+						clearInterval(interval);
+					}
+					}, 2000);
+					return 
+				}
+			} else{
+					console.log("error Occured");
+				}
+			localStorage.clear();
+			
+		<!----- PRODUCE ------>
+		var produceId = "#produceBar";
+		test(produceLife, produceExpiry, produceId);
+		var eggsId = "#eggsBar";
+		test(eggsLife, eggsExpiry, eggsId);
+		var meatId = "#meatBar";
+		test(meatLife, meatExpiry, meatId);
+		var milkEId = "#milkBar";
+		test(milkLife, milkExpiry, milkEId);
+			
+		function test(shelfLife, expiryDay, progId){
+			var pct_left = (expiryDay/shelfLife) * 100;
+			var fullWidth = 100
+			if(shelfLife > 7){
+			var week = 7;
+			} else{ week = 0;}
+			if (expiryDay == 0) {
+				$(progId).removeClass("progress-bar-warning");
+				$(progId).addClass("progress-bar-success");
+				$(progId).text("Super Fresh");
+				$(progId).css("width", fullWidth + "%");
+				$(progId).attr("aria-valuenow", fullWidth + "%");
+				
+			} else if (expiryDay == shelfLife + 1) {
+				$(progId).removeClass("progress-bar-warning");
+				$(progId).addClass("progress-bar-danger");	
+				$(progId).text("Expired");
+				$(progId).css("width", fullWidth + "%");
+				$(progId).attr("aria-valuenow", fullWidth + "%");
+			} else if (expiryDay == shelfLife) {	
+				$(progId).text("Expires Today!");
+				$(progId).css("width", fullWidth + "%");
+				$(progId).attr("aria-valuenow", fullWidth + "%");
+			} else{	
+				$(progId).text(" " + expiryDay + " days left");
+				$(progId).css("width", pct_left + "%");
+				$(progId).attr("aria-valuenow", pct_left + "%");
+			} 
+		}
+       }); <!-- closing document.ready -->
+		
+		<!----- end PRODUCE ------>
+		
+		/* storage */
+		
+		if(typeof(Storage) !== "undefined") {
+			sessionStorage.setItem('milkQuantity', milkQty);
+			sessionStorage.setItem('produceQuantity', produceQty);
+			sessionStorage.setItem('eggsQuantity', eggsQty);
+			sessionStorage.setItem('meatQuantity', meatQty);
+			var milk_qty = sessionStorage.getItem('milkQuantity');
+			var pro_qty = sessionStorage.getItem('produceQuantity');
+			var eggs_qty = sessionStorage.getItem('eggsQuantity');
+			var meat_qty = sessionStorage.getItem('meatQuantity');
+			console.log(" milk qty is: " + milk_qty , "produce is: ", pro_qty, "eggs: ", eggs_qty, "meat: ", meat_qty);
+		} else {
+			alert("Sorry! No Web Storage support..");
+		}
+		
+		var meetings = [];
+		// Get Events from the API
+		if(typeof(Storage) !== "undefined") {
+		 var val = localStorage.getItem('meetArray');
+		 if(val){
+			console.log("nothing");
+			var value = JSON.parse(val);
+			 var value = JSON.parse(localStorage["meetArray"]);
+			//console.log("value is: ",value); 
+			for(var i=0; i<val.length; i++){
+				console.log("msg is:",val[i].msg);
+			} 
+		 }
+		}else{
+			alert("Sorry! No Web Storage support..");
+		}
+					
+/**** COFFEE MACHINE ****/
+
+var waterLevel = Math.floor((Math.random() * 100)+1);
+var powderLevel = Math.floor((Math.random() * 100)+1);
+var filterStatus = ['Excellent', 'Good', 'Fine', 'Bad', 'Very Bad'];
+var randFilterStatus = filterStatus[Math.floor(Math.random() * filterStatus.length)];
+var machineStatus = ['Started', 'Brewing', 'Finished'];
+var randMachineStatus = machineStatus[Math.floor(Math.random() * machineStatus.length)];
+
+document.getElementById('water').innerHTML = waterLevel;
+document.getElementById('powder').innerHTML = powderLevel;
+document.getElementById('filter').innerHTML = randFilterStatus;
+
+/** Toaster **/
+
+var toasterTime = Math.floor((Math.random() * 5)+1);
+document.getElementById('timer').innerHTML = toasterTime + " secs";
+var breadLevel = Math.floor((Math.random() * 10)+1);
+document.getElementById('bread').innerHTML = breadLevel + " left";
+
+</script>
+</html>

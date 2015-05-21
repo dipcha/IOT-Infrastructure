@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\libs\org.eclipse.paho.client.mqttv3_1.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="11752d3f24d1a9deda4533a7ca18d8496417ceeb">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\org.eclipse.paho.client.mqttv3_1.0.2-27548d23fdee564440078aa10add98449968e897.jar" />
+    </item>
+    <item
+        jar="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\libs\spring-android-rest-template-1.0.1.RELEASE.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="e132d929bd181941f79b0d63edafb8a86ae6fd33">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\spring-android-rest-template-1.0.1.RELEASE-4123870c895ae615ae38b5db4ac60c9e69991b64.jar" />
+    </item>
+    <item
+        jar="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\libs\gimbal-dev-logging.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="0ad199f7dd2e1681c73a934c3ef92c35b0656e44">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\gimbal-dev-logging-be4a81acc47a9a07ad012089df29056b6935ce23.jar" />
+    </item>
+    <item
+        jar="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\libs\gimbal.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="96dc8dc2f79342e91f904dbfe9dad0218645d3ce">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\gimbal-28daef98c80cbe94ef986fe8b9165af01cf72156.jar" />
+    </item>
+    <item
+        jar="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\libs\spring-android-core-1.0.1.RELEASE.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="e68f0e8e4b636ee30c4de58953be38d9b72a5e3b">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\spring-android-core-1.0.1.RELEASE-0a471b5da2813d7bbcaf2943b3a3ba5786372390.jar" />
+    </item>
+    <item
+        jar="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\libs\org.eclipse.paho.android.service-1.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="442f81337cb942a855ab20a4a16bfe43adb612c7">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\org.eclipse.paho.android.service-1.0.2-e4b0f99abf22c2153d678b683414a31d92c1e70f.jar" />
+    </item>
+    <item
+        jar="C:\Users\trongkhoa\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\19.0.1\support-v4-19.0.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="587da9a481ffd341d2fa091704489b89845ddacd">
+        <dex dex="C:\Users\trongkhoa\AndroidStudioProjects\Iot-Gimbal\app\build\intermediates\pre-dexed\debug\support-v4-19.0.1-c111938f2f3ec73cb0b0e418dc13cd17479e44a8.jar" />
+    </item>
+
+</items>

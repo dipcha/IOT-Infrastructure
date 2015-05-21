@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bed Room</title>
+
+	<!-- jquery local link replaced with CDN -->
+	
+	<!--script type="text/javascript" src="js/jquery-1.10.2.min.js"></script-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+	
+	<!-- This page doesn't work with local boostrap Javascript. replacing it with CDN -->
+	
+	<!--script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script-->  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+	<script src="assets/js/script.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
+	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+		
+      <style>
+
+        .padBottom {
+            padding-bottom:20px;
+        }
+		label{
+			color:white;
+		}
+
+		.demo{
+			margin-bottom: -10px;
+			padding-bottom: 10px;
+			//background-color:#efefef;
+		}
+		#equalheight {
+			overflow: hidden; 
+		}
+    </style>
+	<script>
+		  	
+var jsalarm={
+	padfield:function(f){
+		return (f<10)? "0"+f : f
+	},
+	showcurrenttime:function(){
+		var dateobj=new Date()
+		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())
+		this.ctref.innerHTML=ct
+		this.ctref.setAttribute("title", ct)
+		if (typeof this.hourwake!="undefined"){ //if alarm is set
+			if (this.ctref.title==(this.hourwake+":"+this.minutewake)){
+				clearInterval(jsalarm.timer)
+				var snd = new Audio("assets/Buzz.wav");
+				$("#myModal").modal('show');
+				$('.modal').on('hidden.bs.modal', function () {
+					 snd.addEventListener('ended', function() {
+						this.currentTime = 0;
+						this.play();
+					}, false);
+					snd.pause();
+				})
+
+				$('.modal').on('shown.bs.modal', function () {
+					snd.loop = true;
+					snd.play();
+				})
+			}
+		}
+	},
+	init:function(){
+		console.log("inside init");
+		var dateobj=new Date()
+		this.ctref=document.getElementById("jsalarm_ct")
+		this.submitref=document.getElementById("submitbutton")
+		this.submitref.onclick=function(){
+			console.log("went to Set Alarm");
+			jsalarm.setalarm()
+			this.value="Alarm Set"
+			alarmClock.status = "ON";
+			this.disabled=true
+			return false
+		}
+		this.resetref=document.getElementById("resetbutton")
+		this.resetref.onclick=function(){
+			jsalarm.submitref.disabled=false
+			 location.reload();
+			jsalarm.hourwake=undefined
+			jsalarm.hourselect.disabled=false
+			jsalarm.minuteselect.disabled=false
+			return false
+		}
+		var selections=document.getElementsByTagName("select")
+		this.hourselect=selections[0]
+		this.minuteselect=selections[1]
+		for (var i=0; i<60; i++){
+			if (i<24) {//If still within range of hours field: 0-23
+			this.hourselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getHours()==i)}
+			this.minuteselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getMinutes()==i)
+		} 
+		jsalarm.showcurrenttime()
+		jsalarm.timer=setInterval(function(){jsalarm.showcurrenttime()}, 1000)
+	},
+	setalarm:function(){
+		console.log("inside set Alram");
+		this.hourwake=this.hourselect.options[this.hourselect.selectedIndex].value
+		this.minutewake=this.minuteselect.options[this.minuteselect.selectedIndex].value
+		this.hourselect.disabled=true
+		this.minuteselect.disabled=true
+	}
+}
+	</script>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="height:60px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				 <a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
+            </div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+            
+			<ul class="nav navbar-nav side-nav">
+					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
+					<li class="selected"><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>					
+					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
+					<li><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>
+                </ul>
+            
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                     <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Aswin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div id="page-wrapper">		
+		<h2 style="text-align:center;">Bedroom</h2>
+		<ul class="pager">
+			<li class="previous"><a href="index.html">Previous</a></li>
+			<li class="next"><a href="livingRoom.html">Next</a></li>
+		</ul>	
+	<div class="well col-sm-offset-1 col-sm-10 col-sm-offset-1 ">
+	<h4>Alarm Clock</h4>
+	<div id="clock" class="dark">
+			<div class="display">
+				<div class="weekdays"></div>
+				<div class="ampm"></div>
+				<div class="alarm"></div>
+				<div class="digits"></div>
+			</div>
+		</div>
+		
+		<!-- starting set alarm clock code  -->
+		
+		<div id="jsalarmclock" style="text-align:center;" class="padBottom">
+<div><input type="hidden" id="jsalarm_ct" style="letter-spacing: 2px"></input></div>
+<div>Set Alarm:<span><select></select> Hour</span> <span><select></select> Minutes</span> <!--span><select></select> Seconds</span--></div><br/><br/>
+<button class="btn btn-primary" type="submit" id="submitbutton">Set Alarm</button> <button class="btn btn-success" type="submit" id="autoSet">Auto</button> <button class="btn btn-default" type="reset" id="resetbutton">Reset</button>
+</div>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Turn Off Alarm</h4>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+				<button type="button" class="btn btn-primary" id="offAlarm" onClick="test();"data-dismiss="modal">Turn Off Alarm</button>
+            </div>
+        </div>
+    </div>
+</div>
+	</div>
+    </div> 
+</div>
+</body>
+<script>
+
+$('#autoSet').click(function(){
+	alert("Time will be set according to traffic conditions");
+});
+
+var setStatus = false; 
+function test(){
+	setStatus = true;
+	localStorage.setItem('buttonStatus', setStatus);
+	window.location = "kitchen.html";
+}
+	jsalarm.init()
+	$(".machine").bootstrapSwitch();
+
+function unsetAlarm(clicked){
+	$(".machine").bootstrapSwitch('disabled', false); 
+	$(".machine").bootstrapSwitch('state', true);
+	$(".machine").bootstrapSwitch('disabled', true); 
+}
+
+</script>
+</html>

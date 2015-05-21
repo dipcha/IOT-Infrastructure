@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Room</title>
+
+	<!-- jquery local link replaced with CDN -->
+	
+	<!--script type="text/javascript" src="js/jquery-1.10.2.min.js"></script-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+	
+	<!-- This page doesn't work with local boostrap Javascript. replacing it with CDN -->
+	
+	<!--script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script-->  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/local.css" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+	<script src="assets/js/script.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<link href="bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet">
+	<script src="bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script type="text/javascript" src="js/jquery.simpleWeather.min.js" /></script>
+	<link rel="stylesheet" type="text/css" href="css/weather.css" />
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+		
+      <style>
+		div{
+			color:#fff;
+		}
+        .padBottom {
+            padding-bottom:20px;
+        }
+		label{
+			color:white;
+		}
+
+		.demo{
+			margin-bottom: -10px;
+			padding-bottom: 10px;
+			//background-color:#efefef;
+		}
+		#equalheight {
+			overflow: hidden; 
+		}
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/img/logo-new.png" style="margin-top: -5px;" width="65" height="40"></img></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+					<li><a href="homePage.html"><i class="fa fa-home fa-lg"></i> Home</a></li>
+                    <li><a href="index.html"><i class="fa fa-tachometer fa-lg"></i> Dashboard</a></li>
+					<li><a href="demoPage.html"><i class="fa fa-tasks fa-lg"></i> Demo Page</a></li>
+					<li><a href="bedRoom.html"><i class="fa fa-bed fa-lg"></i> Bed Room</a></li>
+					<li><a href="kitchen.html"><i class="fa fa-cutlery fa-lg"></i> Kitchen</a></li>
+					<li class="selected"><a href="livingRoom.html"><i class="fa fa-gamepad fa-lg"></i> Living Room</a></li>
+					<li><a href="exitDoor.html"><i class="fa fa-sign-out fa-lg"></i> Exit Door</a></li>
+					<li><a href="support.html"><i class="fa fa-question-circle fa-lg"></i> Support</a></li>					
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                     <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Aswin<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+       <div id="page-wrapper">
+		<!-- Adding Priyanka's code -->
+		
+		<h2 style="text-align:center;">Living Room</h2>
+		<ul class="pager">
+			<li class="previous"><a href="kitchen.html">Previous</a></li>
+			<li class="next"><a href="exitDoor.html">Next</a></li>
+		</ul>	
+		<div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Entertainment System</h3>
+                        </div>
+                        <div class="panel-body">
+						<div class="form-group" style="position: relative;">
+							<img class="displayed" src="assets/img/tv.png" width="200" height="150"></img>
+							<div style="position: absolute; top:-10px; left:358px">
+								<video width="180" height="140" autoplay>
+								  <source src="assets/img/nasa.mp4" type="video/mp4">
+								  <source src="assets/img/nasa.ogg" type="video/ogg">
+								  Your browser does not support HTML5 video.
+								</video>
+							</div>
+						</div>
+						<div class="well col-sm-12"><h4>Weather</h4>
+							<div class="col-sm-6">
+								<div class="well weather" id="homeWeather"></div>
+							</div>
+							<div class="col-sm-6">
+								<div class="well weather" id="workWeather"></div>
+							</div>
+						</div>
+						<div class="well col-sm-12"><h4>Traffic</h4>
+						<div class="col-sm-6" id="text"></div>
+						</div> <!-- col-sm-12-->
+						<div class="well col-sm-12"><h4>Recommendations</h4>
+						<div class=" well col-sm-6" id="weatherRec"></div>
+						<div class=" well col-sm-6" id="trafficRec"></div>
+						</div> <!-- col-sm-12-->
+                        </div><!-- body-->
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 col-sm-8 col-md-offset-2">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Thermostat</h3>
+                        </div>
+                        <div class="panel-body">
+							<div class="form-group">
+								<img class="displayed" src="assets/img/thermostat.png" width="200" height="150"></img>
+							</div>
+							<div class="form-group">
+									<label for="state" class="col-sm-6 control-label">Power:</label>
+									<div class="col-sm-6">
+									<input type="checkbox" name="my-checkbox" class="machine" id="thermostat" data-off-color="danger" data-on-color="success" disabled />
+									</div>
+							</div>
+							<div class="form-group">
+									<label for="company" class="col-sm-6 control-label">Indoor Temperature:</label>
+									<div class="col-sm-6">
+									<label for="company" class="col-sm-6 control-label" id="temp"></label>
+									</div>
+							</div>
+                        </div><!--body-->
+                    </div>
+                </div>
+            </div><!-- row -->
+	
+    </div> 
+</div>
+</body>
+<script>
+/* Traffic */
+
+	var cities = ["San Jose Downtown", "Santa Clara", "Sunnyvale", "Mountain View", "Palo Alto", "Redwood City", "San Carlos", "Belmont", "San Mateo", "Burlingame", "Milbrae", "San Bruno", "Airport", "South San Francisco", "Brisbane", "Bernal Heights", "Mission District", "San Francisco Downtown"];
+	var incident = ["Construction", "Accident", "Road Closure", "No Incidents"];
+	var randCity = cities[Math.floor(Math.random() * cities.length)];
+	var randIncident = incident[Math.floor(Math.random() * incident.length)];
+	var randMins = Math.floor((Math.random() * 21) + 10);
+	console.log(randCity + " " + randIncident + " " + randMins + " mins");
+	var trafficUpdate= randIncident + " on North Bound US-101 near " + randCity;
+	var recommendTraffic = randIncident + " on North Bound US-101 near " + randCity + " Please leave in " + randMins + " minutes";
+	if(randIncident == "No Incidents"){
+		recommendTraffic = "No traffic. Takes an average of 1 hour to reach work";
+	}
+	document.getElementById("text").innerHTML = trafficUpdate;
+	document.getElementById("trafficRec").innerHTML = recommendTraffic;
+
+/* Power ON for Thermostat */
+	$(".machine").bootstrapSwitch();
+	$(".machine").bootstrapSwitch('disabled', false); 
+	$(".machine").bootstrapSwitch('state', true);
+	$(".machine").bootstrapSwitch('disabled', true);
+	
+/* Thermostat Temp Display **/
+$.ajax({ //indoor
+		url: 'http://Default-Environment-qnbzq3unpn.elasticbeanstalk.com/1/getTemp', 
+		dataType: 'jsonp',
+		success: function(result){
+		var y = result.temperature;
+		console.log("temp value : ", y);
+		document.getElementById('temp').innerHTML = y;
+		}
+});
+
+/** Weather Display **/
+	$.simpleWeather({
+    location: 'San Francisco, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+	var temp = weather.temp;
+	var condition = weather.currently;
+	//alert(condition);
+	if(condition == "Light Rain" || condition == "Rain" || condition == "Showers" ){
+		document.getElementById('weatherRec').innerHTML = "Take an Umbrella. Rain in weather prediction.";
+	}else if(condition == "Partly Cloudy"){
+		document.getElementById('weatherRec').innerHTML = "It's partly cloudy but low temperatures. Jacket might come in handy!";
+	}
+	/* if(temp > 70){
+	document.getElementById('weatherRec').innerHTML = "Summer is here and it's Shorts weather!";
+  }else if(temp < 60 && temp > 50){
+	document.getElementById('weatherRec').innerHTML = "It's gonna be cold. A Jacket might come in handy!";
+  } */
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      html += '<li class="currently">'+weather.currently+'</li></ul><br/>';
+     // html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul><br/>';
+	  // html += '<li>'+weather.sunrise+' '+weather.sunset+'</li></ul>';
+	  html +='<div class="well"><h4>Sunrise '+weather.sunrise+'</h4>';
+	  html +='<h4>Sunset '+weather.sunset+'</h4></div>';
+	   html +='<div class="well"><h4>Forecast</h4>';
+	   html +='<table class="table table-striped">';
+	for(var i=0;i<weather.forecast.length;i++) {
+        html += '<tr><td>'+weather.forecast[i].day+'</td>';
+		html += '<td>'+weather.forecast[i].high+'</td>';
+		html += '<td>'+weather.forecast[i].low+'</td></tr>';
+      }
+	  html +='</table></div>';
+      $("#workWeather").html(html);
+    },
+    error: function(error) {
+      $("#workWeather").html('<p>'+error+'</p>');
+    }
+  }); 
+  
+  $.simpleWeather({
+    location: 'San Jose, CA',
+    woeid: '',
+    unit: 'f',
+    success: function(weather) {
+	var temp = weather.temp;
+	var condition = weather.currently;
+	//alert(condition);
+	if(condition == "Light Rain" || condition == "Rain" || condition == "Showers" ){
+		document.getElementById('weatherRec').innerHTML = "Please take an Umbrella. Rain/showers in weather prediction.";
+	} else if(condition == "Fair" && temp > 70){
+		document.getElementById('weatherRec').innerHTML = "Clear skies and hot temperatures. Time to wear Shorts!";
+	  } else if(condition == "Fair" && temp < 60){
+		document.getElementById('weatherRec').innerHTML = "Clear skies but low temperatures. Carry a Jacket!";
+	  } else if(condition == "Cloudy" || condition == "Partly Cloudy" && temp < 65){
+		document.getElementById('weatherRec').innerHTML = "The temperatures are below 60 degrees. Wear that extra layer!";
+	  }else if(condition == "Fair" && temp > 60 && temp < 70){
+		document.getElementById('weatherRec').innerHTML = "Sunny with clear skies. Feel free to dress up like you wish!";
+	  } 
+	/* if(temp > 70){
+	document.getElementById('weatherRec').innerHTML = "Summer is here and it's Shorts weather!";
+  }else if(temp < 60 && temp > 50){
+	document.getElementById('weatherRec').innerHTML = "It's gonna be cold. A Jacket might come in handy!";
+  } */
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      html += '<li class="currently">'+weather.currently+'</li></ul><br/>';
+     // html += '<li>'+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul><br/>';
+	  // html += '<li>'+weather.sunrise+' '+weather.sunset+'</li></ul>';
+	  html +='<div class="well"><h4>Sunrise '+weather.sunrise+'</h4>';
+	  html +='<h4>Sunset '+weather.sunset+'</h4></div>';
+	   html +='<div class="well"><h4>Forecast</h4>';
+	   html +='<table class="table table-striped">';
+	for(var i=0;i<weather.forecast.length;i++) {
+        html += '<tr><td>'+weather.forecast[i].day+'</td>';
+		html += '<td>'+weather.forecast[i].high+'</td>';
+		html += '<td>'+weather.forecast[i].low+'</td></tr>';
+      }
+	  html +='</table></div>';
+      $("#homeWeather").html(html);
+    },
+    error: function(error) {
+      $("#homeWeather").html('<p>'+error+'</p>');
+    }
+  }); 
+</script>
+</html>
